@@ -1,16 +1,25 @@
 // Load All Search Data form API
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText, dataLimit) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
   const res = await fetch(url);
   const data = await res.json();
-  displayPhone(data.data);
+  displayPhone(data.data, dataLimit);
 };
 
 // Display Data Index Page
-const displayPhone = (phones) => {
+const displayPhone = (phones, dataLimit) => {
   // display Phone
   const phoneContainer = document.getElementById("phone-container");
   phoneContainer.textContent = "";
+
+  // display 10 phone only
+  const showAll = document.getElementById("show-all");
+  if (dataLimit && phones.length > 9) {
+    showAll.classList.remove("d-none");
+    phones = phones.slice(0, 9);
+  } else {
+    showAll.classList.add("d-none");
+  }
 
   // check phone
   const noFoundMgs = document.getElementById("no-phone-found");
@@ -20,6 +29,7 @@ const displayPhone = (phones) => {
     noFoundMgs.classList.add("d-none");
   }
 
+  // display All Phone
   phones.forEach((phone) => {
     // console.log(phone);
     const phoneDiv = document.createElement("div");
@@ -48,12 +58,22 @@ const displayPhone = (phones) => {
   });
 };
 
-// Input form search field
-document.getElementById("search").addEventListener("click", function () {
+// Search Process
+
+const processSearch = (dataLimit) => {
   const phoneSearchInput = document.getElementById("search-phone");
   const phoneSearch = phoneSearchInput.value;
-  //   console.log(phoneSearch);
-  loadPhone(phoneSearch);
+  loadPhone(phoneSearch, dataLimit);
+};
+
+// Input form search field
+document.getElementById("search").addEventListener("click", function () {
+  processSearch(9);
 });
 
-loadPhone("a");
+// Show All Button
+document.getElementById("show-all").addEventListener("click", function () {
+  processSearch();
+});
+
+// loadPhone("oppo");
