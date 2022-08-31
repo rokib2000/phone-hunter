@@ -36,8 +36,14 @@
               </li>
             </ul>
             <div class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <input
+                id="search-phone"
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button id="search" class="btn btn-outline-success" type="submit">Search</button>
             </div>
           </div>
         </div>
@@ -87,6 +93,12 @@
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <!-- Alart Messege  -->
+      <section>
+        <div id="no-phone-found" class="alert alert-danger text-center d-none" role="alert">
+          No Phone Found. Please try a new search!
         </div>
       </section>
     </main>

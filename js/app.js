@@ -1,12 +1,25 @@
-const loadPhone = async () => {
-  const url = `https://openapi.programming-hero.com/api/phones?search=iphone`;
+// Load All Search Data form API
+const loadPhone = async (searchText) => {
+  const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
   const res = await fetch(url);
   const data = await res.json();
   displayPhone(data.data);
 };
 
+// Display Data Index Page
 const displayPhone = (phones) => {
+  // display Phone
   const phoneContainer = document.getElementById("phone-container");
+  phoneContainer.textContent = "";
+
+  // check phone
+  const noFoundMgs = document.getElementById("no-phone-found");
+  if (phones.length === 0) {
+    noFoundMgs.classList.remove("d-none");
+  } else {
+    noFoundMgs.classList.add("d-none");
+  }
+
   phones.forEach((phone) => {
     // console.log(phone);
     const phoneDiv = document.createElement("div");
@@ -35,4 +48,12 @@ const displayPhone = (phones) => {
   });
 };
 
-loadPhone();
+// Input form search field
+document.getElementById("search").addEventListener("click", function () {
+  const phoneSearchInput = document.getElementById("search-phone");
+  const phoneSearch = phoneSearchInput.value;
+  //   console.log(phoneSearch);
+  loadPhone(phoneSearch);
+});
+
+loadPhone("a");
